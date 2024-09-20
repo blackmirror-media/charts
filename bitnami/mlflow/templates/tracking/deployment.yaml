@@ -218,11 +218,22 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.externalAzureBlob.existingSecret }}
                   key: {{ .Values.externalAzureBlob.existingAccessKeyKey }}
+            - name: AZURE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.externalAzureBlob.existingSecret }}
+                  key: {{ .Values.externalAzureBlob.clientSecretKey }}
             {{- else }}
             - name: AZURE_STORAGE_CONNECTION_STRING
               value: {{ .Values.externalAzureBlob.connectionString }}
             - name: AZURE_STORAGE_ACCESS_KEY
               value: {{ .Values.externalAzureBlob.accessKey }}
+            - name: AZURE_CLIENT_ID
+              value: {{ .Values.externalAzureBlob.clientId }}
+            - name: AZURE_TENANT_ID
+              value: {{ .Values.externalAzureBlob.tenantId }}
+            - name: AZURE_CLIENT_SECRET
+              value: {{ .Values.externalAzureBlob.clientSecret }}
             {{- end }}
             {{- end }}
             -
