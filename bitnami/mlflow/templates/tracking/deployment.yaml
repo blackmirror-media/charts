@@ -205,6 +205,7 @@ spec:
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /bitnami/gcs/key.json
             {{- end }}
+            {{- end }}
 
             {{- if (include "mlflow.v0.azureBlob.enabled" .) }}
             {{- if .Values.externalAzureBlob.useCredentialsInSecret }}
