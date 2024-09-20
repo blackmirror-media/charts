@@ -228,16 +228,26 @@ spec:
                   name: {{ .Values.externalAzureBlob.existingSecret }}
                   key: {{ .Values.externalAzureBlob.clientSecretKey }}
             {{- else }}
+            {{- if .Values.externalAzureBlob.connectionString }}
             - name: AZURE_STORAGE_CONNECTION_STRING
               value: {{ .Values.externalAzureBlob.connectionString }}
+            {{- end }}
+            {{- if .Values.externalAzureBlob.accessKey }}
             - name: AZURE_STORAGE_ACCESS_KEY
               value: {{ .Values.externalAzureBlob.accessKey }}
+            {{- end }}
+            {{- if .Values.externalAzureBlob.clientId }}
             - name: AZURE_CLIENT_ID
               value: {{ .Values.externalAzureBlob.clientId }}
+            {{- end }}
+            {{- if .Values.externalAzureBlob.tenantId }}
             - name: AZURE_TENANT_ID
               value: {{ .Values.externalAzureBlob.tenantId }}
+            {{- end }}
+            {{- if .Values.externalAzureBlob.clientSecret }}
             - name: AZURE_CLIENT_SECRET
               value: {{ .Values.externalAzureBlob.clientSecret }}
+            {{- end }}
             {{- end }}
             {{- end }}
 
