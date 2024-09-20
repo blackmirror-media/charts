@@ -182,6 +182,7 @@ spec:
                   name: {{ include "mlflow.v0.database.secretName" . }}
                   key: {{ include "mlflow.v0.database.passwordKey" . | quote }}
             {{- end }}
+
             {{- if (include "mlflow.v0.s3.enabled" .) }}
             {{- if .Values.externalS3.useCredentialsInSecret }}
             - name: AWS_ACCESS_KEY_ID
@@ -196,10 +197,12 @@ spec:
                   key: {{ include "mlflow.v0.s3.secretAccessKeyKey" . | quote }}
             {{- end }}
             {{- end }}
+
             {{- if (include "mlflow.v0.s3.enabled" .) }}
             - name: MLFLOW_S3_ENDPOINT_URL
               value: {{ printf "%s://%s:%v" (include "mlflow.v0.s3.protocol" .) (include "mlflow.v0.s3.host" .) (include "mlflow.v0.s3.port" .) | quote }}
             {{- end }}
+            -
             {{- if (include "mlflow.v0.gcs.enabled" .) }}
             {{- if .Values.externalGCS.useCredentialsInSecret }}
             - name: GOOGLE_APPLICATION_CREDENTIALS
@@ -237,12 +240,12 @@ spec:
               value: {{ .Values.externalAzureBlob.clientSecret }}
             {{- end }}
             {{- end }}
-            -
+
             {{- if .Values.externalGCS.googleCloudProject }}
             - name: GOOGLE_CLOUD_PROJECT
               value: {{ .Values.externalGCS.googleCloudProject }}
             {{- end }}
-            {{- end }}
+
             {{- if .Values.tracking.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.tracking.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
